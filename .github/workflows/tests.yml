@@ -1,0 +1,17 @@
+name: tests
+on:
+  push:
+  pull_request:
+jobs:
+  offline:
+    # No GPU and no AWS: checks the decision pattern, the gate and the mock pipeline.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+      - run: python -m signal_aid.pipeline --mock-decider --no-llm --out /tmp/replay.json
+      - run: python scripts/build_web.py --replay /tmp/replay.json --out /tmp/index.html
