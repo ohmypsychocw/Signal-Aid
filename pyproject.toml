@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signal-aid"
+version = "0.1.0"
+description = "Earthquake message triage with Strands Decider 2B and Amazon Bedrock (Agent Experience Hackathon)."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+  "strands-agents>=1.61",
+  "boto3>=1.35",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "jupyter>=1.0"]
+
+[tool.setuptools.packages.find]
+include = ["signal_aid*", "patterns*", "eval*"]
+
+[tool.setuptools.package-data]
+"patterns.disaster_triage" = ["thresholds.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
