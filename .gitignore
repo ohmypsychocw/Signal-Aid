@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+decider.log
+web/dist/
+eval/results_*.json
+data/generated.jsonl
+.env
