@@ -1,0 +1,7 @@
+# Agent, evaluation and notebook. The Decider server is installed separately on the
+# GPU machine (see scripts/ec2_setup.sh).
+strands-agents>=1.61
+boto3>=1.35
+pyyaml>=6.0
+pytest>=8.0
+jupyter>=1.0
