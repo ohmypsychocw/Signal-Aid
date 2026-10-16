@@ -1,0 +1,18 @@
+# Disaster Triage thresholds.
+# Starting values only: tune them with eval/evaluate.py on your own labeled set
+# and write down why you chose each one.
+
+# Minimum report_type confidence to publish an incident without a human.
+publish_min_conf: 0.9
+# Minimum confidence to auto-handle harmless messages (not_a_report, offers_help).
+auto_min_conf: 0.9
+# Safety net: if P(people_at_risk) is at or above this, the message is never auto-handled.
+# Kept LOW on purpose: a false alarm costs seconds, a missed person can cost a life.
+people_at_risk_flag: 0.3
+# P(first_hand) at or above this marks the report as first-hand.
+first_hand_min: 0.5
+# Minimum P(same_incident) to merge a report into an existing incident.
+same_incident_min: 0.8
+# Deduplication prefilter: only incidents this close in space and time are compared.
+dedupe_radius_m: 200
+dedupe_window_min: 120

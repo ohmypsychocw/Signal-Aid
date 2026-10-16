@@ -1,0 +1,2020 @@
+{
+ "meta": {
+  "generated_at": "2026-10-16T20:56:14+00:00",
+  "mock_decider": true,
+  "decider_model": "MOCK-keyword-rules",
+  "llm": false,
+  "question_lang": "en",
+  "thresholds": {
+   "publish_min_conf": 0.9,
+   "auto_min_conf": 0.9,
+   "people_at_risk_flag": 0.3,
+   "first_hand_min": 0.5,
+   "same_incident_min": 0.8,
+   "dedupe_radius_m": 200.0,
+   "dedupe_window_min": 120.0
+  },
+  "synthetic_data": true
+ },
+ "stats": {
+  "messages": 36,
+  "outcomes": {
+   "human_review": 10,
+   "auto_handled": 13,
+   "published": 11,
+   "merged": 2
+  },
+  "incidents": 11,
+  "human_review": 10,
+  "bedrock_agent_invocations": 0,
+  "bedrock_invocations_avoided": null,
+  "decider_triage_latency_ms_p50": null,
+  "decider_triage_latency_ms_p95": null,
+  "decider_roundtrip_ms_p50": null,
+  "wall_clock_s": 0.0
+ },
+ "events": [
+  {
+   "message": {
+    "id": "MSG-001",
+    "ts": "2026-11-05T13:21:00-06:00",
+    "text": "ayuda!!! en calle morelos 210 se cayó la casa y escucho gritos debajo, somos vecinos no podemos solos",
+    "lat": 20.67645,
+    "lon": -103.34819,
+    "address": "Calle Morelos 210",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "trapped_person",
+    "report_conf": 0.4891,
+    "report_probs": {
+     "trapped_person": 0.4891,
+     "structural_damage": 0.4891,
+     "gas_leak": 0.0054,
+     "needs_supplies": 0.0054,
+     "offers_help": 0.0054,
+     "not_a_report": 0.0054
+    },
+    "first_hand": 0.8,
+    "urgency": 3.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "critical category trapped_person",
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-002",
+    "ts": "2026-11-05T13:22:00-06:00",
+    "text": "que fuerte estuvo, dios cuide a todos 🙏",
+    "lat": 20.67671,
+    "lon": -103.35342,
+    "address": null,
+    "label": {
+     "report_type": "not_a_report",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-003",
+    "ts": "2026-11-05T13:22:00-06:00",
+    "text": "huele muchísimo a gas en av juárez 455 frente a la farmacia, la gente sigue pasando",
+    "lat": 20.67402,
+    "lon": -103.35307,
+    "address": "Av. Juárez 455",
+    "label": {
+     "report_type": "gas_leak",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "gas_leak",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.9474,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 3.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "critical category gas_leak",
+     "confidence 0.95 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-001"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-004",
+    "ts": "2026-11-05T13:23:00-06:00",
+    "text": "dicen que se cayó el puente de la calzada, alguien sabe??",
+    "lat": 20.67196,
+    "lon": -103.34994,
+    "address": null,
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "structural_damage",
+    "report_conf": 0.9994,
+    "report_probs": {
+     "trapped_person": 0.0001,
+     "structural_damage": 0.9994,
+     "gas_leak": 0.0001,
+     "needs_supplies": 0.0001,
+     "offers_help": 0.0001,
+     "not_a_report": 0.0001
+    },
+    "first_hand": 0.2,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": false,
+    "reasons": [
+     "structural_damage with confidence 1.00"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-002"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-005",
+    "ts": "2026-11-05T13:24:00-06:00",
+    "text": "Morelos 210 sigue la señora abajo, ya la oímos pidiendo agua, urgen brigadistas con herramienta",
+    "lat": 20.67633,
+    "lon": -103.34808,
+    "address": "Calle Morelos 210",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-006",
+    "ts": "2026-11-05T13:24:00-06:00",
+    "text": "tengo camioneta y puedo llevar gente o víveres a donde se necesite, mándenme ubicación",
+    "lat": 20.67206,
+    "lon": -103.35327,
+    "address": null,
+    "label": {
+     "report_type": "offers_help",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.4891,
+    "report_probs": {
+     "trapped_person": 0.0054,
+     "structural_damage": 0.0054,
+     "gas_leak": 0.0054,
+     "needs_supplies": 0.4891,
+     "offers_help": 0.4891,
+     "not_a_report": 0.0054
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "low confidence (0.49) for needs_supplies"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-007",
+    "ts": "2026-11-05T13:25:00-06:00",
+    "text": "se cuarteó toda la fachada del edificio en pino suárez 88, ya desalojamos, no hay nadie adentro",
+    "lat": 20.679,
+    "lon": -103.34398,
+    "address": "Calle Pino Suárez 88",
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-008",
+    "ts": "2026-11-05T13:25:00-06:00",
+    "text": "rt rt rt urgente compartan",
+    "lat": 20.67249,
+    "lon": -103.35221,
+    "address": null,
+    "label": {
+     "report_type": "not_a_report",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.2,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": false,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-009",
+    "ts": "2026-11-05T13:26:00-06:00",
+    "text": "en el albergue de calle libertad 1020 necesitamos agua, cobijas y medicinas para 40 personas",
+    "lat": 20.67203,
+    "lon": -103.35986,
+    "address": "Calle Libertad 1020",
+    "label": {
+     "report_type": "needs_supplies",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9994,
+    "report_probs": {
+     "trapped_person": 0.0001,
+     "structural_damage": 0.0001,
+     "gas_leak": 0.0001,
+     "needs_supplies": 0.9994,
+     "offers_help": 0.0001,
+     "not_a_report": 0.0001
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-010",
+    "ts": "2026-11-05T13:27:00-06:00",
+    "text": "mi abuela vive en hidalgo 300 y no contesta el teléfono, el edificio se ve dañado en las fotos",
+    "lat": 20.67791,
+    "lon": -103.35106,
+    "address": "Calle Hidalgo 300",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-011",
+    "ts": "2026-11-05T13:27:00-06:00",
+    "text": "me dijeron que en morelos hay gente atrapada, alguien confirma?",
+    "lat": 20.67671,
+    "lon": -103.34823,
+    "address": "Calle Morelos 210",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "trapped_person",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.9474,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.2,
+    "urgency": 3.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": false,
+    "reasons": [
+     "critical category trapped_person",
+     "people_at_risk 0.92 ≥ 0.3",
+     "confidence 0.95 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-003"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-012",
+    "ts": "2026-11-05T13:28:00-06:00",
+    "text": "ya cerramos la llave del gas en juárez 455 pero sigue el olor fuerte, alejen a la gente",
+    "lat": 20.67415,
+    "lon": -103.3531,
+    "address": "Av. Juárez 455",
+    "label": {
+     "report_type": "gas_leak",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "gas_leak",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.9474,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 3.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "critical category gas_leak",
+     "confidence 0.95 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "merged",
+    "incident_id": "INC-001"
+   },
+   "gate": [
+    {
+     "tool": "merge_incident",
+     "action": "proceed",
+     "reason": "same_incident 0.95",
+     "p_same_incident": 0.95,
+     "latency_ms": 0.0,
+     "incident_id": "INC-001"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-013",
+    "ts": "2026-11-05T13:29:00-06:00",
+    "text": "ofrezco mi casa para que se queden 2 familias, zona centro",
+    "lat": 20.67265,
+    "lon": -103.35306,
+    "address": null,
+    "label": {
+     "report_type": "offers_help",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "offers_help",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.9474,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "offers_help with confidence 0.95 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-014",
+    "ts": "2026-11-05T13:29:00-06:00",
+    "text": "la barda de mi vecina en colón 150 se vino abajo, no hubo heridos",
+    "lat": 20.67301,
+    "lon": -103.34637,
+    "address": "Calle Colón 150",
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "structural_damage",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.9474,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-015",
+    "ts": "2026-11-05T13:30:00-06:00",
+    "text": "esto es culpa del gobierno, nunca revisan los edificios",
+    "lat": 20.67295,
+    "lon": -103.34935,
+    "address": null,
+    "label": {
+     "report_type": "not_a_report",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-016",
+    "ts": "2026-11-05T13:31:00-06:00",
+    "text": "se necesitan palas y cascos en morelos 210 ya llegaron voluntarios pero sin equipo",
+    "lat": 20.67658,
+    "lon": -103.3481,
+    "address": "Calle Morelos 210",
+    "label": {
+     "report_type": "needs_supplies",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9999,
+    "report_probs": {
+     "trapped_person": 0.0,
+     "structural_damage": 0.0,
+     "gas_leak": 0.0,
+     "needs_supplies": 0.9999,
+     "offers_help": 0.0001,
+     "not_a_report": 0.0
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "needs_supplies with confidence 1.00"
+    ]
+   },
+   "outcome": {
+    "result": "merged",
+    "incident_id": "INC-003"
+   },
+   "gate": [
+    {
+     "tool": "merge_incident",
+     "action": "proceed",
+     "reason": "same_incident 0.95",
+     "p_same_incident": 0.95,
+     "latency_ms": 0.0,
+     "incident_id": "INC-003"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-017",
+    "ts": "2026-11-05T13:31:00-06:00",
+    "text": "estoy en hidalgo 300, se escuchan golpes en el segundo piso, hay alguien adentro",
+    "lat": 20.6779,
+    "lon": -103.35119,
+    "address": "Calle Hidalgo 300",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.2,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": false,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-018",
+    "ts": "2026-11-05T13:32:00-06:00",
+    "text": "vi en face que en juárez explotó un tanque, es cierto?",
+    "lat": 20.67383,
+    "lon": -103.35314,
+    "address": "Av. Juárez 455",
+    "label": {
+     "report_type": "gas_leak",
+     "people_at_risk": true,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.2,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": false,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-019",
+    "ts": "2026-11-05T13:33:00-06:00",
+    "text": "llevamos 20 garrafones de agua al albergue de libertad",
+    "lat": 20.67205,
+    "lon": -103.36007,
+    "address": "Calle Libertad 1020",
+    "label": {
+     "report_type": "offers_help",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-020",
+    "ts": "2026-11-05T13:33:00-06:00",
+    "text": "alguien sabe si hay clases mañana?",
+    "lat": 20.67401,
+    "lon": -103.34932,
+    "address": null,
+    "label": {
+     "report_type": "not_a_report",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.2,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": false,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-021",
+    "ts": "2026-11-05T13:34:00-06:00",
+    "text": "en pino suárez 88 se siguen cayendo pedazos de la fachada a la banqueta, cierren la calle",
+    "lat": 20.67901,
+    "lon": -103.34419,
+    "address": "Calle Pino Suárez 88",
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-022",
+    "ts": "2026-11-05T13:35:00-06:00",
+    "text": "somos estudiantes de medicina, 6 personas disponibles para apoyar donde haga falta",
+    "lat": 20.67786,
+    "lon": -103.34841,
+    "address": null,
+    "label": {
+     "report_type": "offers_help",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-023",
+    "ts": "2026-11-05T13:36:00-06:00",
+    "text": "faltan medicinas para diabéticos en el albergue de libertad 1020",
+    "lat": 20.67188,
+    "lon": -103.36001,
+    "address": "Calle Libertad 1020",
+    "label": {
+     "report_type": "needs_supplies",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9994,
+    "report_probs": {
+     "trapped_person": 0.0001,
+     "structural_damage": 0.0001,
+     "gas_leak": 0.0001,
+     "needs_supplies": 0.9994,
+     "offers_help": 0.0001,
+     "not_a_report": 0.0001
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "needs_supplies with confidence 1.00"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-004"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-024",
+    "ts": "2026-11-05T13:36:00-06:00",
+    "text": "Hidalgo 300: los bomberos ya están aquí pero necesitan más manos para quitar escombro",
+    "lat": 20.67789,
+    "lon": -103.35087,
+    "address": "Calle Hidalgo 300",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.9474,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "needs_supplies with confidence 0.95"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-005"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-025",
+    "ts": "2026-11-05T13:37:00-06:00",
+    "text": "que alguien me explique por qué tiembla tanto en septiembre jaja",
+    "lat": 20.67734,
+    "lon": -103.3517,
+    "address": null,
+    "label": {
+     "report_type": "not_a_report",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-026",
+    "ts": "2026-11-05T13:38:00-06:00",
+    "text": "sacaron a una persona viva de morelos 210!! falta un señor todavía",
+    "lat": 20.67671,
+    "lon": -103.3482,
+    "address": "Calle Morelos 210",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-027",
+    "ts": "2026-11-05T13:39:00-06:00",
+    "text": "hay chispas en un poste caído en colón esquina con juárez",
+    "lat": 20.67306,
+    "lon": -103.3464,
+    "address": "Calle Colón 150",
+    "label": {
+     "report_type": "gas_leak",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "gas_leak",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.9474,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 3.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "critical category gas_leak",
+     "confidence 0.95 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-006"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-028",
+    "ts": "2026-11-05T13:40:00-06:00",
+    "text": "tengo una planta de luz, se la presto a quien la necesite",
+    "lat": 20.67272,
+    "lon": -103.35009,
+    "address": null,
+    "label": {
+     "report_type": "offers_help",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.9474,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "needs_supplies with confidence 0.95"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-007"
+   },
+   "gate": [
+    {
+     "tool": "merge_incident",
+     "action": "guide",
+     "reason": "same_incident 0.15",
+     "p_same_incident": 0.15,
+     "latency_ms": 0.0,
+     "incident_id": "INC-002"
+    },
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-029",
+    "ts": "2026-11-05T13:41:00-06:00",
+    "text": "segun un grupo de whats el hospital civil está colapsado",
+    "lat": 20.67181,
+    "lon": -103.34865,
+    "address": null,
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": true,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "structural_damage",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.9474,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.2,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": false,
+    "reasons": [
+     "structural_damage with confidence 0.95"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-008"
+   },
+   "gate": [
+    {
+     "tool": "merge_incident",
+     "action": "guide",
+     "reason": "same_incident 0.15",
+     "p_same_incident": 0.15,
+     "latency_ms": 0.0,
+     "incident_id": "INC-002"
+    },
+    {
+     "tool": "merge_incident",
+     "action": "guide",
+     "reason": "same_incident 0.15",
+     "p_same_incident": 0.15,
+     "latency_ms": 0.0,
+     "incident_id": "INC-007"
+    },
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-030",
+    "ts": "2026-11-05T13:42:00-06:00",
+    "text": "la escuela de la colonia tiene grietas, mañana no la abran",
+    "lat": 20.67762,
+    "lon": -103.34942,
+    "address": null,
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "structural_damage",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.9474,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "structural_damage with confidence 0.95"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-009"
+   },
+   "gate": [
+    {
+     "tool": "merge_incident",
+     "action": "guide",
+     "reason": "same_incident 0.15",
+     "p_same_incident": 0.15,
+     "latency_ms": 0.0,
+     "incident_id": "INC-005"
+    },
+    {
+     "tool": "merge_incident",
+     "action": "guide",
+     "reason": "same_incident 0.15",
+     "p_same_incident": 0.15,
+     "latency_ms": 0.0,
+     "incident_id": "INC-003"
+    },
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-031",
+    "ts": "2026-11-05T13:43:00-06:00",
+    "text": "por favor no difundan rumores, verifiquen antes de compartir",
+    "lat": 20.6785,
+    "lon": -103.35149,
+    "address": null,
+    "label": {
+     "report_type": "not_a_report",
+     "people_at_risk": false,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-032",
+    "ts": "2026-11-05T13:44:00-06:00",
+    "text": "en hidalgo 300 ya escuchan a la abuelita, sigue viva, necesitamos un médico",
+    "lat": 20.67796,
+    "lon": -103.35098,
+    "address": "Calle Hidalgo 300",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.9474,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-033",
+    "ts": "2026-11-05T13:45:00-06:00",
+    "text": "urge agua potable en la calle libertad, el albergue ya se quedó sin nada",
+    "lat": 20.67201,
+    "lon": -103.36006,
+    "address": "Calle Libertad 1020",
+    "label": {
+     "report_type": "needs_supplies",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.9474,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "needs_supplies with confidence 0.95"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-010"
+   },
+   "gate": [
+    {
+     "tool": "merge_incident",
+     "action": "guide",
+     "reason": "same_incident 0.55",
+     "p_same_incident": 0.55,
+     "latency_ms": 0.0,
+     "incident_id": "INC-004"
+    },
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-034",
+    "ts": "2026-11-05T13:46:00-06:00",
+    "text": "oigan está fea la grieta en mi pared pero estamos bien",
+    "lat": 20.67822,
+    "lon": -103.34644,
+    "address": null,
+    "label": {
+     "report_type": "structural_damage",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "structural_damage",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.9474,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.0105,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "actionable",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "structural_damage with confidence 0.95"
+    ]
+   },
+   "outcome": {
+    "result": "published",
+    "incident_id": "INC-011"
+   },
+   "gate": [
+    {
+     "tool": "publish_incident",
+     "action": "proceed",
+     "reason": "route is actionable"
+    }
+   ]
+  },
+  {
+   "message": {
+    "id": "MSG-035",
+    "ts": "2026-11-05T13:47:00-06:00",
+    "text": "juárez 455 la fuga ya la controló protección civil, ya pueden pasar",
+    "lat": 20.674,
+    "lon": -103.35295,
+    "address": "Av. Juárez 455",
+    "label": {
+     "report_type": "gas_leak",
+     "people_at_risk": false,
+     "first_hand": true
+    }
+   },
+   "triage": {
+    "report_type": "not_a_report",
+    "report_conf": 0.9161,
+    "report_probs": {
+     "trapped_person": 0.0168,
+     "structural_damage": 0.0168,
+     "gas_leak": 0.0168,
+     "needs_supplies": 0.0168,
+     "offers_help": 0.0168,
+     "not_a_report": 0.9161
+    },
+    "first_hand": 0.8,
+    "urgency": 0.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.08,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "auto_handle",
+    "priority": false,
+    "first_hand": true,
+    "reasons": [
+     "not_a_report with confidence 0.92 ≥ 0.9"
+    ]
+   },
+   "outcome": {
+    "result": "auto_handled"
+   },
+   "gate": []
+  },
+  {
+   "message": {
+    "id": "MSG-036",
+    "ts": "2026-11-05T13:48:00-06:00",
+    "text": "necesito saber de mi hermano que trabaja en pino suárez, no contesta",
+    "lat": 20.67885,
+    "lon": -103.34403,
+    "address": "Calle Pino Suárez 88",
+    "label": {
+     "report_type": "trapped_person",
+     "people_at_risk": true,
+     "first_hand": false
+    }
+   },
+   "triage": {
+    "report_type": "needs_supplies",
+    "report_conf": 0.9474,
+    "report_probs": {
+     "trapped_person": 0.0105,
+     "structural_damage": 0.0105,
+     "gas_leak": 0.0105,
+     "needs_supplies": 0.9474,
+     "offers_help": 0.0105,
+     "not_a_report": 0.0105
+    },
+    "first_hand": 0.8,
+    "urgency": 2.0,
+    "urgency_conf": 0.7,
+    "people_at_risk": 0.92,
+    "latency_ms": 0.0
+   },
+   "route": {
+    "action": "human_review",
+    "priority": true,
+    "first_hand": true,
+    "reasons": [
+     "people_at_risk 0.92 ≥ 0.3",
+     "possible person in danger: a human must decide"
+    ]
+   },
+   "outcome": {
+    "result": "human_review"
+   },
+   "gate": []
+  }
+ ],
+ "incidents": [
+  {
+   "id": "INC-001",
+   "category": "gas_leak",
+   "address": "Av. Juárez 455",
+   "brief": "Posible fuga de gas · 2 reportes",
+   "lat": 20.67402,
+   "lon": -103.35307,
+   "priority": true,
+   "created_at": "2026-11-05T13:22:00-06:00",
+   "updated_at": "2026-11-05T13:28:00-06:00",
+   "report_ids": [
+    "MSG-003",
+    "MSG-012"
+   ],
+   "first_hand_reports": 2,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-002",
+   "category": "structural_damage",
+   "address": "sin dirección",
+   "brief": "Daño estructural reportado · 1 reporte",
+   "lat": 20.67196,
+   "lon": -103.34994,
+   "priority": true,
+   "created_at": "2026-11-05T13:23:00-06:00",
+   "updated_at": "2026-11-05T13:23:00-06:00",
+   "report_ids": [
+    "MSG-004"
+   ],
+   "first_hand_reports": 0,
+   "status": "unconfirmed"
+  },
+  {
+   "id": "INC-003",
+   "category": "trapped_person",
+   "address": "Calle Morelos 210",
+   "brief": "Posible persona atrapada · 2 reportes",
+   "lat": 20.67671,
+   "lon": -103.34823,
+   "priority": true,
+   "created_at": "2026-11-05T13:27:00-06:00",
+   "updated_at": "2026-11-05T13:31:00-06:00",
+   "report_ids": [
+    "MSG-011",
+    "MSG-016"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-004",
+   "category": "needs_supplies",
+   "address": "Calle Libertad 1020",
+   "brief": "Se solicitan insumos · 1 reporte",
+   "lat": 20.67188,
+   "lon": -103.36001,
+   "priority": true,
+   "created_at": "2026-11-05T13:36:00-06:00",
+   "updated_at": "2026-11-05T13:36:00-06:00",
+   "report_ids": [
+    "MSG-023"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-005",
+   "category": "needs_supplies",
+   "address": "Calle Hidalgo 300",
+   "brief": "Se solicitan insumos · 1 reporte",
+   "lat": 20.67789,
+   "lon": -103.35087,
+   "priority": true,
+   "created_at": "2026-11-05T13:36:00-06:00",
+   "updated_at": "2026-11-05T13:36:00-06:00",
+   "report_ids": [
+    "MSG-024"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-006",
+   "category": "gas_leak",
+   "address": "Calle Colón 150",
+   "brief": "Posible fuga de gas · 1 reporte",
+   "lat": 20.67306,
+   "lon": -103.3464,
+   "priority": true,
+   "created_at": "2026-11-05T13:39:00-06:00",
+   "updated_at": "2026-11-05T13:39:00-06:00",
+   "report_ids": [
+    "MSG-027"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-007",
+   "category": "needs_supplies",
+   "address": "sin dirección",
+   "brief": "Se solicitan insumos · 1 reporte",
+   "lat": 20.67272,
+   "lon": -103.35009,
+   "priority": true,
+   "created_at": "2026-11-05T13:40:00-06:00",
+   "updated_at": "2026-11-05T13:40:00-06:00",
+   "report_ids": [
+    "MSG-028"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-008",
+   "category": "structural_damage",
+   "address": "sin dirección",
+   "brief": "Daño estructural reportado · 1 reporte",
+   "lat": 20.67181,
+   "lon": -103.34865,
+   "priority": true,
+   "created_at": "2026-11-05T13:41:00-06:00",
+   "updated_at": "2026-11-05T13:41:00-06:00",
+   "report_ids": [
+    "MSG-029"
+   ],
+   "first_hand_reports": 0,
+   "status": "unconfirmed"
+  },
+  {
+   "id": "INC-009",
+   "category": "structural_damage",
+   "address": "sin dirección",
+   "brief": "Daño estructural reportado · 1 reporte",
+   "lat": 20.67762,
+   "lon": -103.34942,
+   "priority": true,
+   "created_at": "2026-11-05T13:42:00-06:00",
+   "updated_at": "2026-11-05T13:42:00-06:00",
+   "report_ids": [
+    "MSG-030"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-010",
+   "category": "needs_supplies",
+   "address": "Calle Libertad 1020",
+   "brief": "Se solicitan insumos · 1 reporte",
+   "lat": 20.67201,
+   "lon": -103.36006,
+   "priority": true,
+   "created_at": "2026-11-05T13:45:00-06:00",
+   "updated_at": "2026-11-05T13:45:00-06:00",
+   "report_ids": [
+    "MSG-033"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  },
+  {
+   "id": "INC-011",
+   "category": "structural_damage",
+   "address": "sin dirección",
+   "brief": "Daño estructural reportado · 1 reporte",
+   "lat": 20.67822,
+   "lon": -103.34644,
+   "priority": true,
+   "created_at": "2026-11-05T13:46:00-06:00",
+   "updated_at": "2026-11-05T13:46:00-06:00",
+   "report_ids": [
+    "MSG-034"
+   ],
+   "first_hand_reports": 1,
+   "status": "confirmed"
+  }
+ ],
+ "review_queue": [
+  {
+   "message_id": "MSG-001",
+   "reason": "critical category trapped_person; people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-005",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-006",
+   "reason": "low confidence (0.49) for needs_supplies",
+   "priority": false
+  },
+  {
+   "message_id": "MSG-009",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-010",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-014",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-022",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-026",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-032",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  },
+  {
+   "message_id": "MSG-036",
+   "reason": "people_at_risk 0.92 ≥ 0.3; possible person in danger: a human must decide",
+   "priority": true
+  }
+ ],
+ "volunteer_offers": [
+  {
+   "message_id": "MSG-013",
+   "text": "ofrezco mi casa para que se queden 2 familias, zona centro"
+  }
+ ]
+}
